@@ -1,10 +1,11 @@
 
 import React from 'react';
 import AppNavBar from './components/AppNavBar';
+import TimezonesList from './components/TimezonesList';
 
 export default () => (
   <div>
-    <AppNavBar label="App" screen="app/main" />
-    <h1>The App</h1>
+    <AppNavBar label="TimeZ" screen="app/main" />
+    <TimezonesList onTimezoneAdd={() => {}} onTimezoneRemove={() => {}} />
   </div>
 );

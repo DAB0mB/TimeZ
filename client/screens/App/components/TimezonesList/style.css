@@ -1,0 +1,23 @@
+.creator {
+  display: grid;
+}
+
+.input {
+  margin: 10px;
+}
+
+.item {
+  max-width: 500px;
+}
+
+.label {
+  float: left;
+}
+
+.add-button {
+  float: right;
+}
+
+.remove-button {
+  float: right;
+}
