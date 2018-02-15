@@ -7,17 +7,20 @@
 }
 
 .item {
-  max-width: 500px;
+  width: 100%;
+  font-family: Roboto, sans-serif;
+  height: 48px;
+  line-height: 48px;
+}
+
+.table td {
+  width: 100px;
 }
 
 .label {
   float: left;
 }
 
-.add-button {
-  float: right;
-}
-
-.remove-button {
+.removeButton {
   float: right;
 }

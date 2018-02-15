@@ -6,24 +6,23 @@ import RemoveCircleIcon from 'material-ui/svg-icons/content/remove-circle';
 import style from './style.css';
 
 export const TimezoneItem = ({ timezone, onRemove }) => (
-  <div className={style.item}>
-    <div className={style.label}>name: {timezone.name}</div>
-    <div className={style.label}>city: {timezone.city}</div>
-    <div className={style.label}>diff: {timezone.diff}</div>
-    <IconButton className={style.removeButton} onClick={onRemove}>
-      <RemoveCircleIcon />
-    </IconButton>
-  </div>
+  <tr className={style.item}>
+    <td className={style.label}>{timezone.name}</td>
+    <td className={style.label}>{timezone.city}</td>
+    <td className={style.label}>{timezone.diff}</td>
+    <td>
+      <IconButton className={style.removeButton} onClick={onRemove}>
+        <RemoveCircleIcon />
+      </IconButton>
+    </td>
+  </tr>
 );
 
 TimezoneItem.propTypes = {
   timezone: PropTypes.shape({
     name: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
-    diff: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
+    diff: PropTypes.number.isRequired,
   }).isRequired,
   onRemove: PropTypes.func.isRequired,
 };

@@ -11,11 +11,17 @@ import style from './style.css';
 
 const gmtDiffOptions = [];
 
+const formatGmtDiff = (diff) => {
+  const sign = diff < 0 ? '-' : diff > 0 ? '+' : '';
+
+  return `GMT ${sign}${Math.abs(diff)}`;
+};
+
 for (let i = -12; i <= 12; i++) {
-  const sign = i < 0 ? '-' : i > 0 ? '+' : '';
+  const diff = formatGmtDiff(i);
 
   gmtDiffOptions.push(
-    <MenuItem key={i} value={i} primaryText={`GMT ${sign}${Math.abs(i)}`} />
+    <MenuItem key={i} value={diff} primaryText={diff} />
   );
 }
 
@@ -27,7 +33,7 @@ export class TimezoneCreator extends React.Component {
   state = {
     name: '',
     city: '',
-    diff: 0,
+    diff: 'GMT 0',
   }
 
   render() {
@@ -89,7 +95,7 @@ export class TimezoneCreator extends React.Component {
     this.setState({
       name: '',
       city: '',
-      diff: 0,
+      diff: 'GMT 0',
     });
 
     onCreate(timezone);

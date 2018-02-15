@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 import TimezoneCreator from './TimezoneCreator';
 import TimezoneItem from './TimezoneItem';
 
+import style from './style.css';
+
 export class TimezonesList extends React.Component {
   static propTypes = {
     timezones: PropTypes.array,
@@ -27,11 +29,13 @@ export class TimezonesList extends React.Component {
       <div>
         <TimezoneCreator onCreate={this.addTimezone.bind(this)} />
 
-        {this.state.timezones.map((timezone, i) => (
-          <TimezoneItem key={i}
-                        timezone={timezone}
-                        onRemove={this.removeTimezone.bind(this, i)} />
-        ))}
+        <table className={style.table}>
+          {this.state.timezones.map((timezone, i) => (
+            <TimezoneItem key={i}
+                          timezone={timezone}
+                          onRemove={this.removeTimezone.bind(this, i)} />
+          ))}
+        </table>
       </div>
     );
   }
