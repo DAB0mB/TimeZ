@@ -21,10 +21,6 @@ module.exports = function () { // 'function' needed as we use 'this'
 
   const options = {
     Model: db,
-    paginate: {
-      default: 5,
-      max: 25,
-    },
   };
 
   // Initialize our service with any options it requires
@@ -34,7 +30,7 @@ module.exports = function () { // 'function' needed as we use 'this'
   const timezoneService = app.service('/timezones');
 
   // Set up our before hooks
-  timezoneService.before(hooks.before(app));
+  timezoneService.before(hooks.before);
 
   // Set up our after hooks
   timezoneService.after(hooks.after);

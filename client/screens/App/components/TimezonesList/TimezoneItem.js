@@ -11,7 +11,7 @@ export const TimezoneItem = ({ timezone, onRemove }) => (
     <td className={style.label}>{timezone.city}</td>
     <td className={style.label}>{timezone.diff}</td>
     <td>
-      <IconButton className={style.removeButton} onClick={onRemove}>
+      <IconButton className={style.removeButton} onClick={onRemove.bind(null, timezone._id)}>
         <RemoveCircleIcon />
       </IconButton>
     </td>
@@ -22,7 +22,7 @@ TimezoneItem.propTypes = {
   timezone: PropTypes.shape({
     name: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
-    diff: PropTypes.number.isRequired,
+    diff: PropTypes.string.isRequired,
   }).isRequired,
   onRemove: PropTypes.func.isRequired,
 };

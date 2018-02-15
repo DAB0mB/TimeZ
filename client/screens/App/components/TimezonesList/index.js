@@ -9,8 +9,9 @@ import style from './style.css';
 export class TimezonesList extends React.Component {
   static propTypes = {
     timezones: PropTypes.array,
-    onTimezoneAdd: PropTypes.func.isRequired,
-    onTimezoneRemove: PropTypes.func.isRequired,
+    createTimezone: PropTypes.func.isRequired,
+    removeTimezone: PropTypes.func.isRequired,
+    fetchTimezones: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -26,6 +27,22 @@ export class TimezonesList extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchTimezones();
+  }
+
+  componentWillReceiveProps(props) {
+    const state = {};
+
+    if ('timezones' in props) {
+      state.timezones = props.timezones;
+    }
+
+    if (Object.keys(state).length) {
+      this.setState(state);
+    }
+  }
+
   render() {
     const { pattern } = this.state;
 
@@ -35,7 +52,7 @@ export class TimezonesList extends React.Component {
 
     return (
       <div>
-        <TimezoneCreator onCreate={this.addTimezone.bind(this)} />
+        <TimezoneCreator onCreate={this.createTimezone.bind(this)} />
 
         <TextField name="name"
           value={pattern}
@@ -46,25 +63,37 @@ export class TimezonesList extends React.Component {
         />
 
         <table className={style.table}>
-          {timezones.map((timezone, i) => (
-            <TimezoneItem key={i}
-              timezone={timezone}
-              onRemove={this.removeTimezone.bind(this, i)}
-            />
-          ))}
+          <tbody>
+            {timezones.map((timezone, i) => (
+              <TimezoneItem key={i}
+                timezone={timezone}
+                onRemove={this.removeTimezone.bind(this)}
+              />
+            ))}
+          </tbody>
         </table>
       </div>
     );
   }
 
-  addTimezone(timezone) {
-    this.state.timezones.push(timezone);
-    this.forceUpdate();
+  createTimezone(timezone) {
+    this.props.createTimezone(timezone).then(({ value }) => {
+      this.state.timezones.push(value);
+      this.forceUpdate();
+    });
   }
 
-  removeTimezone(i) {
-    this.state.timezones.splice(i, 1);
-    this.forceUpdate();
+  removeTimezone(_id) {
+    this.props.removeTimezone(_id).then(() => {
+      let i;
+
+      for (i = 0; i < this.state.timezones.length; i++) {
+        if (this.state.timezones[i]._id == _id) break;
+      }
+
+      this.state.timezones.splice(i, 1);
+      this.forceUpdate();
+    });
   }
 }
 
