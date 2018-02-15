@@ -1,5 +1,6 @@
 
 import React, { PropTypes } from 'react';
+import TextField from 'material-ui/TextField';
 import TimezoneCreator from './TimezoneCreator';
 import TimezoneItem from './TimezoneItem';
 
@@ -20,20 +21,36 @@ export class TimezonesList extends React.Component {
     super(props);
 
     this.state = {
-      timezones: props.timezones
+      timezones: props.timezones,
+      pattern: '',
     };
   }
 
   render() {
+    const { pattern } = this.state;
+
+    const timezones = this.state.timezones.filter(({ name }) => {
+      return name.match(pattern);
+    });
+
     return (
       <div>
         <TimezoneCreator onCreate={this.addTimezone.bind(this)} />
 
+        <TextField name="name"
+          value={pattern}
+          onChange={({ target }) => this.setState({ pattern: target.value }) }
+          floatingLabelText="Filter"
+          hintText="Filter timezones by name."
+          autoComplete="off"
+        />
+
         <table className={style.table}>
-          {this.state.timezones.map((timezone, i) => (
+          {timezones.map((timezone, i) => (
             <TimezoneItem key={i}
-                          timezone={timezone}
-                          onRemove={this.removeTimezone.bind(this, i)} />
+              timezone={timezone}
+              onRemove={this.removeTimezone.bind(this, i)}
+            />
           ))}
         </table>
       </div>
