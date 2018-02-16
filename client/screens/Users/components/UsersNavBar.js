@@ -92,7 +92,7 @@ const makeBarButtons = (screen) => {
           />
           <MenuItem
             containerElement={<Link to="/" />}
-            primaryText="Application"
+            primaryText="Timezones"
           />
         </IconMenu>
       );

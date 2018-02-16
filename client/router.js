@@ -24,7 +24,7 @@ import UserProfileChange from './screens/Users/UserProfileChange';
 import UserRolesChange from './screens/Users/UserRolesChange';
 import UserProfile from './screens/Users/UserProfile';
 import UserSignInPending from './screens/Users/UserSignInPending';
-import App from './screens/App';
+import Timezones from './screens/Timezones';
 
 // Authentication Higher Order Components to wrap route components.
 const UserIsAuthenticated = UserAuthWrapper({
@@ -76,7 +76,7 @@ export default function (store, history) {
         <Router history={history}>
           <Route path="/" component={AppWrapper}>
             <IndexRedirect to={config.client.defaultRoute} />
-            <Route path={config.client.defaultRoute} component={UserIsAuthenticated(App)} />
+            <Route path={config.client.defaultRoute} component={UserIsAuthenticated(Timezones)} />
             <Route path="/user/signin" component={UserSignIn} />
             <Route path="/user/signup" component={UserSignUp} />
             <Route path="/user/signupsendemail" component={UserSignUpSendEmail} />

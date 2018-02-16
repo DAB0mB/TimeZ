@@ -47,7 +47,7 @@ module.exports = {
     appName: 'Feathers-starter-react-redux-login-roles',
     // Route for app's root.
     // Used by Express middleware, React-Router config, and app when redirecting.
-    defaultRoute: '/app',
+    defaultRoute: '/timezones',
   },
   database: {
     // folder for NeDn database

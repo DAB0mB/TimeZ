@@ -1,11 +1,11 @@
 
 import React from 'react';
-import AppNavBar from './components/AppNavBar';
+import TimezonesNavBar from './components/TimezonesNavBar';
 import Container from './Container';
 
 export default () => (
   <div>
-    <AppNavBar label="TimeZ" screen="app/main" />
+    <TimezonesNavBar label="Timezones" screen="timezones/main" />
     <Container />
   </div>
 );

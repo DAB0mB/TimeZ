@@ -11,7 +11,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import MessageBar from '../../components/MessageBar';
 
-export const AppNavBar = ({ label, screen, message }) => (
+export const TimezonesNavBar = ({ label, screen, message }) => (
   <div>
     <AppBar
       title={<span>{label}</span>}
@@ -22,7 +22,7 @@ export const AppNavBar = ({ label, screen, message }) => (
   </div>
 );
 
-AppNavBar.propTypes = {
+TimezonesNavBar.propTypes = {
   label: PropTypes.string.isRequired, // Nav bar label
   screen: PropTypes.string.isRequired, // nav bar is for this patch, determines options shown
   username: PropTypes.any,
@@ -37,7 +37,7 @@ const makeBarButtons = (screen) => {
      being returned. If you need to access the same value within the child component, you should
      pass it as a different prop.
      */
-    case 'app/main':
+    case 'timezones/main':
       return (
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -63,4 +63,4 @@ const makeBarButtons = (screen) => {
   }
 };
 
-export default AppNavBar;
+export default TimezonesNavBar;
