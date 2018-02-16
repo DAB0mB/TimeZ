@@ -12,10 +12,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchTimezones: () => (
-    dispatch(feathersServices.timezones.find({}))
+    dispatch(feathersServices.timezones.find({
+      query: {
+        userId: ownProps.userId,
+      },
+    }))
   ),
   createTimezone: (timezone) => (
-    dispatch(feathersServices.timezones.create(timezone))
+    dispatch(feathersServices.timezones.create({
+      ...timezone,
+      userId: ownProps.userId,
+    }))
   ),
   removeTimezone: (timezone) => (
     dispatch(feathersServices.timezones.remove(timezone))

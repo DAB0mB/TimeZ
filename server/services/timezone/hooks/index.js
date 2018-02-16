@@ -32,7 +32,10 @@ exports.after = {
   find: [],
   get: [
     (context) => {
-      if (context.result.userId != context.params.user._id) {
+      const user = context.params.user;
+      const result = context.result;
+
+      if (!user.roles.includes('superAdmin') && result.userId != user._id) {
         context.result = {};
       }
     }
@@ -44,9 +47,19 @@ exports.after = {
 };
 
 function associateData(context) {
-  context.data.userId = context.params.user._id;
+  const user = context.params.user;
+  const data = context.data;
+
+  if (!user.roles.includes('superAdmin') || !data.userId) {
+    data.userId = user._id;
+  }
 }
 
 function associateQuery(context) {
-  context.params.query.userId = context.params.user._id;
+  const user = context.params.user;
+  const query = context.params.query;
+
+  if (!user.roles.includes('superAdmin') || !query.userId) {
+    query.userId = user._id;
+  }
 }

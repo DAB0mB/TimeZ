@@ -76,7 +76,7 @@ export default function (store, history) {
         <Router history={history}>
           <Route path="/" component={AppWrapper}>
             <IndexRedirect to={config.client.defaultRoute} />
-            <Route path={config.client.defaultRoute} component={UserIsAuthenticated(Timezones)} />
+            <Route path={`${config.client.defaultRoute}(/:userId)`} component={UserIsAuthenticated(Timezones)} />
             <Route path="/user/signin" component={UserSignIn} />
             <Route path="/user/signup" component={UserSignUp} />
             <Route path="/user/signupsendemail" component={UserSignUpSendEmail} />
