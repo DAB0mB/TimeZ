@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import MessageBar from '../../components/MessageBar';
@@ -15,7 +16,7 @@ export const UsersNavBar = ({ label, screen, message }) => (
   <div>
     <AppBar
       title={<span>Authentication - {label}</span>}
-      iconElementLeft={<div />}
+      iconElementLeft={makeBackButton(screen)}
       iconElementRight={makeBarButtons(screen)}
     />
     <MessageBar message={message} />
@@ -86,14 +87,6 @@ const makeBarButtons = (screen) => {
             containerElement={<Link to="/user/profilechange" />}
             primaryText="Change profile"
           />
-          <MenuItem
-            containerElement={<Link to="/user/roleschange" />}
-            primaryText="Change roles (admin)"
-          />
-          <MenuItem
-            containerElement={<Link to="/" />}
-            primaryText="Timezones"
-          />
         </IconMenu>
       );
 
@@ -107,9 +100,15 @@ const makeBarButtons = (screen) => {
         />
       );
 
-    case 'user/passwordchange': // eslint-disable-line no-case-declarations
+    case 'user/passwordchange':
     case 'user/emailchange': // eslint-disable-line no-case-declarations
     case 'user/profilechange': // eslint-disable-line no-case-declarations
+      return (
+        <FlatButton
+          label="Sign out" containerElement={<Link to="/user/signin" />}
+        />
+      );
+
     case 'user/roleschange': // eslint-disable-line no-case-declarations
       return (
         <IconMenu
@@ -142,5 +141,29 @@ const makeBarButtons = (screen) => {
     }
   }
 };
+
+const makeBackButton = (screen) => {
+  switch (screen) {
+    case 'user/profile':
+    case 'user/roleschange': // eslint-disable-line no-case-declarations
+      return (
+        <Link to="/">
+          <IconButton><ArrowBackIcon /></IconButton>
+        </Link>
+      )
+    case 'user/passwordchange':
+    case 'user/emailchange': // eslint-disable-line no-case-declarations
+    case 'user/profilechange': // eslint-disable-line no-case-declarations
+      return (
+        <Link to="/user/profile">
+          <IconButton><ArrowBackIcon /></IconButton>
+        </Link>
+      )
+    default:
+      return (
+        <div />
+      );
+  }
+}
 
 export default UsersNavBar;

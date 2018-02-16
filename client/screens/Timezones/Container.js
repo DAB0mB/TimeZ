@@ -2,13 +2,12 @@
 import { connect } from 'react-redux';
 import { feathersServices, feathersAuthentication } from '../../feathers';
 
-import TimezonesList from './components/TimezonesList'; // eslint-disable-line import/no-unresolved
+import Main from './components/Main'; // eslint-disable-line import/no-unresolved
 
-const mapStateToProps = (state) => {
-  return {
-    timezones: state.timezones.queryResult || [],
-  };
-};
+const mapStateToProps = (state) => ({
+  timezones: state.timezones.queryResult || [],
+  roles: state.auth.user.roles || [],
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchTimezones: () => (
@@ -29,4 +28,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimezonesList);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

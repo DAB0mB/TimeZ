@@ -11,12 +11,12 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import MessageBar from '../../components/MessageBar';
 
-export const TimezonesNavBar = ({ label, screen, message }) => (
+export const TimezonesNavBar = ({ label, screen, message, roles }) => (
   <div>
     <AppBar
       title={<span>{label}</span>}
       iconElementLeft={<div />}
-      iconElementRight={makeBarButtons(screen)}
+      iconElementRight={makeBarButtons(screen, roles)}
     />
     <MessageBar message={message} />
   </div>
@@ -26,10 +26,11 @@ TimezonesNavBar.propTypes = {
   label: PropTypes.string.isRequired, // Nav bar label
   screen: PropTypes.string.isRequired, // nav bar is for this patch, determines options shown
   username: PropTypes.any,
-  message: PropTypes.string, //
+  message: PropTypes.string,
+  roles: PropTypes.arrayOf(PropTypes.string),
 };
 
-const makeBarButtons = (screen) => {
+const makeBarButtons = (screen, roles) => {
   switch (screen) {
     /*
      Material-ui 0.14.x is not yet compatible with React 15, and React issues this warning:
@@ -52,6 +53,12 @@ const makeBarButtons = (screen) => {
             containerElement={<Link to="/user/profile" />}
             primaryText="User profile"
           />
+          {roles.includes('superAdmin') && (
+            <MenuItem
+              containerElement={<Link to="/user/roleschange" />}
+              primaryText="Change roles"
+            />
+          )}
         </IconMenu>
       );
 
