@@ -35,11 +35,6 @@ const renderUsers = ({ fields }) => {
 };
 
 class Form extends Component {
-  // Ignore state changes with each user update.
-  shouldComponentUpdate(nextProps) {
-    return JSON.stringify(this.props.initialValues) !== JSON.stringify(nextProps.initialValues);
-  }
-
   render() {
     const { loadUsers, handleSubmit, pristine, reset, submitting, invalid } = this.props;
 
