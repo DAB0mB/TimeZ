@@ -24,6 +24,7 @@ import UserProfileChange from './screens/Users/UserProfileChange';
 import UserRolesChange from './screens/Users/UserRolesChange';
 import UserProfile from './screens/Users/UserProfile';
 import UserSignInPending from './screens/Users/UserSignInPending';
+import UsersManagement from './screens/Users/UsersManagement';
 import Timezones from './screens/Timezones';
 
 // Authentication Higher Order Components to wrap route components.
@@ -92,6 +93,9 @@ export default function (store, history) {
               component={UserIsAuthenticated(UserIsAdmin(UserRolesChange))}
             />
             <Route path="/user/profile" component={UserIsAuthenticated(UserProfile)} />
+            <Route path="/users"
+              component={UserIsAuthenticated(UserIsAdmin(UsersManagement))}
+            />
           </Route>
         </Router>
       </Provider>

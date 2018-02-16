@@ -1,13 +1,17 @@
 
 import { connect } from 'react-redux';
-import { feathersServices, feathersAuthentication } from '../../feathers';
+import { feathersServices } from '../../feathers';
 
 import Main from './components/Main'; // eslint-disable-line import/no-unresolved
 
-const mapStateToProps = (state) => ({
-  timezones: state.timezones.queryResult || [],
-  roles: state.auth.user.roles || [],
-});
+const mapStateToProps = (state) => {
+  const timezonesQueryResult = state.timezones.queryResult || {};
+
+  return {
+    timezones: timezonesQueryResult.data || [],
+    roles: state.auth.user.roles || [],
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchTimezones: () => (

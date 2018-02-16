@@ -15,7 +15,7 @@ import MessageBar from '../../components/MessageBar';
 export const UsersNavBar = ({ label, screen, message }) => (
   <div>
     <AppBar
-      title={<span>Authentication - {label}</span>}
+      title={<span>{label}</span>}
       iconElementLeft={makeBackButton(screen)}
       iconElementRight={makeBarButtons(screen)}
     />
@@ -103,6 +103,7 @@ const makeBarButtons = (screen) => {
     case 'user/passwordchange':
     case 'user/emailchange': // eslint-disable-line no-case-declarations
     case 'user/profilechange': // eslint-disable-line no-case-declarations
+    case 'users': // eslint-disable-line no-case-declarations
       return (
         <FlatButton
           label="Sign out" containerElement={<Link to="/user/signin" />}
@@ -146,6 +147,7 @@ const makeBackButton = (screen) => {
   switch (screen) {
     case 'user/profile':
     case 'user/roleschange': // eslint-disable-line no-case-declarations
+    case 'users': // eslint-disable-line no-case-declarations
       return (
         <Link to="/">
           <IconButton><ArrowBackIcon /></IconButton>
@@ -164,6 +166,6 @@ const makeBackButton = (screen) => {
         <div />
       );
   }
-}
+};
 
 export default UsersNavBar;

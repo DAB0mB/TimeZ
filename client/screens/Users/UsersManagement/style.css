@@ -1,0 +1,18 @@
+.list {
+  list-style: none;
+}
+
+.item {
+  width: 256px;
+  font-family: Roboto, sans-serif;
+  height: 48px;
+  line-height: 48px;
+}
+
+.label {
+  float: left;
+}
+
+.editButton {
+  float: right;
+}

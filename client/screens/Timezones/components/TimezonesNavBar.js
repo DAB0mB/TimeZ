@@ -8,14 +8,15 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 
 import MessageBar from '../../components/MessageBar';
 
-export const TimezonesNavBar = ({ label, screen, message, roles }) => (
+export const TimezonesNavBar = ({ label, screen, message, roles, showBackButton }) => (
   <div>
     <AppBar
       title={<span>{label}</span>}
-      iconElementLeft={<div />}
+      iconElementLeft={makeBackButton(showBackButton)}
       iconElementRight={makeBarButtons(screen, roles)}
     />
     <MessageBar message={message} />
@@ -59,6 +60,12 @@ const makeBarButtons = (screen, roles) => {
               primaryText="Change roles"
             />
           )}
+          {roles.length && (
+            <MenuItem
+              containerElement={<Link to="/users" />}
+              primaryText="Users"
+            />
+          )}
         </IconMenu>
       );
 
@@ -68,6 +75,16 @@ const makeBarButtons = (screen, roles) => {
       );
     }
   }
+};
+
+const makeBackButton = (showBackButton) => {
+  if (!showBackButton) return <div />;
+
+  return (
+    <Link to="/users">
+      <IconButton><ArrowBackIcon /></IconButton>
+    </Link>
+  );
 };
 
 export default TimezonesNavBar;
