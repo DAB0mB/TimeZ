@@ -9,20 +9,44 @@ exports.before = {
     auth.restrictToAuthenticated(),
     verifyHooks.restrictToVerified(),
   ],
-  find: [],
+  find: [
+    associateQuery,
+  ],
   get: [],
+  create: [
+    associateData,
+  ],
+  update: [
+    associateQuery,
+  ],
+  patch: [
+    associateQuery,
+  ],
+  remove: [
+    associateQuery,
+  ],
+};
+
+exports.after = {
+  all: [],
+  find: [],
+  get: [
+    (context) => {
+      if (context.result.userId != context.params.user._id) {
+        context.result = {};
+      }
+    }
+  ],
   create: [],
   update: [],
   patch: [],
   remove: [],
 };
 
-exports.after = {
-  all: [],
-  find: [],
-  get: [],
-  create: [],
-  update: [],
-  patch: [],
-  remove: [],
-};
+function associateData(context) {
+  context.data.userId = context.params.user._id;
+}
+
+function associateQuery(context) {
+  context.params.query.userId = context.params.user._id;
+}
