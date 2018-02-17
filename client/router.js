@@ -21,7 +21,6 @@ import UserForgotPwdReset from './screens/Users/UserForgotPwdReset';
 import UserPasswordChange from './screens/Users/UserPasswordChange';
 import UserEmailChange from './screens/Users/UserEmailChange';
 import UserProfileChange from './screens/Users/UserProfileChange';
-import UserRolesChange from './screens/Users/UserRolesChange';
 import UserProfile from './screens/Users/UserProfile';
 import UserSignInPending from './screens/Users/UserSignInPending';
 import UsersManagement from './screens/Users/UsersManagement';

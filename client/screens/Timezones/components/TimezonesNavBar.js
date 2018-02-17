@@ -54,12 +54,6 @@ const makeBarButtons = (screen, roles) => {
             containerElement={<Link to="/user/profile" />}
             primaryText="User profile"
           />
-          {roles.includes('superAdmin') && (
-            <MenuItem
-              containerElement={<Link to="/user/roleschange" />}
-              primaryText="Change roles"
-            />
-          )}
           {roles.length && (
             <MenuItem
               containerElement={<Link to="/users" />}
