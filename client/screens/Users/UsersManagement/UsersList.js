@@ -9,6 +9,8 @@ export class UsersList extends React.Component {
   static propTypes = {
     users: PropTypes.array,
     fetchUsers: PropTypes.func.isRequired,
+    removeUser: PropTypes.func.isRequired,
+    toggleRole: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -57,13 +59,36 @@ export class UsersList extends React.Component {
           autoComplete="off"
         />
 
-        <list>
-          {users.map((user, i) => (
-            <UserItem key={i} user={user} />
-          ))}
-        </list>
+        <table>
+          <tbody>
+            {users.map((user, i) => (
+              <UserItem key={i}
+                user={user}
+                toggleRole={this.toggleRole.bind(this)}
+                removeUser={this.removeUser.bind(this)}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     );
+  }
+
+  toggleRole(user, role) {
+    this.props.toggleRole(user, role);
+  }
+
+  removeUser(user) {
+    this.props.removeUser(user).then(() => {
+      let i;
+
+      for (i = 0; i < this.state.users.length; i++) {
+        if (this.state.users[i]._id == user._id) break;
+      }
+
+      this.state.users.splice(i, 1);
+      this.forceUpdate();
+    });
   }
 }
 

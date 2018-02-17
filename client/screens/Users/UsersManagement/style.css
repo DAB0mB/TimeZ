@@ -3,16 +3,25 @@
 }
 
 .item {
-  width: 256px;
+  width: 512px;
   font-family: Roboto, sans-serif;
   height: 48px;
   line-height: 48px;
 }
 
-.label {
+.username {
   float: left;
+  width: 100px;
+}
+
+.checkbox {
+  width: 180px;
 }
 
 .editButton {
   float: right;
+}
+
+.removeButton {
+  float: left;
 }
