@@ -37,13 +37,15 @@ class UserItem extends React.Component {
             onCheck={this.toggleRole.bind(this, 'admin')}
           />
         </td>
-        <td className={style.checkbox}>
-          <Checkbox label="super admin"
-            className={style.checkbox}
-            checked={roles.includes('superAdmin')}
-            onCheck={this.toggleRole.bind(this, 'superAdmin')}
-          />
-        </td>
+        {roles.includes('superAdmin') && (
+          <td className={style.checkbox}>
+            <Checkbox label="super admin"
+              className={style.checkbox}
+              checked={roles.includes('superAdmin')}
+              onCheck={this.toggleRole.bind(this, 'superAdmin')}
+            />
+          </td>
+        )}
         <td className={style.fnButton}>
           <IconButton className={style.removeButton} onClick={this.removeUser.bind(this)} >
             <RemoveCircleIcon />

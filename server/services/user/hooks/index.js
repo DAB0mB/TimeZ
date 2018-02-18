@@ -64,6 +64,18 @@ exports.before = (app) => {
         ownerField: idName,
         owner: true,
       }),
+      (context) => {
+        const user = context.params.user;
+        const data = context.data;
+
+        // An admin can't make a user a superAdmin
+        if (user.roles.includes('admin') &&
+           !user.roles.includes('superAdmin') &&
+           data.roles && data.roles.includes('superAdmin')) {
+            const index = data.roles.indexOf('superAdmin');
+            data.roles.splice(index, 1);
+        }
+      }
     ],
     patch: [ // client route /user/rolechange patches roles. todo might check its an admin acct
       auth.verifyToken(),

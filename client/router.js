@@ -88,9 +88,6 @@ export default function (store, history) {
             />
             <Route path="/user/emailchange" component={UserIsAuthenticated(UserEmailChange)} />
             <Route path="/user/profilechange" component={UserIsAuthenticated(UserProfileChange)} />
-            <Route path="/user/roleschange"
-              component={UserIsAuthenticated(UserIsAdmin(UserRolesChange))}
-            />
             <Route path="/user/profile" component={UserIsAuthenticated(UserProfile)} />
             <Route path="/users"
               component={UserIsAuthenticated(UserIsAdmin(UsersManagement))}
