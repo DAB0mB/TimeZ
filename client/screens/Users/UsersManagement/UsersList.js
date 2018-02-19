@@ -45,6 +45,7 @@ export class UsersList extends React.Component {
 
   render() {
     const { pattern } = this.state;
+    const { controllerUser } = this.props;
 
     const users = this.state.users.filter(({ username }) => {
       return username.match(pattern);
@@ -64,9 +65,10 @@ export class UsersList extends React.Component {
 
         <table>
           <tbody>
-            {users.map((user, i) => (
-              <UserItem key={i}
+            {users.map((user) => (
+              <UserItem key={user.username}
                 user={user}
+                controllerUser={controllerUser}
                 toggleRole={this.toggleRole.bind(this)}
                 removeUser={this.removeUser.bind(this)}
               />

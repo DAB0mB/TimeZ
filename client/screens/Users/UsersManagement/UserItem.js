@@ -11,6 +11,7 @@ import style from './style.css';
 class UserItem extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
+    controllerUser: PropTypes.object.isRequired,
     removeUser: PropTypes.func.isRequired,
     toggleRole: PropTypes.func.isRequired,
   }
@@ -25,6 +26,7 @@ class UserItem extends React.Component {
 
   render() {
     const { user } = this.state;
+    const { controllerUser } = this.props;
     const { roles, username, _id } = user;
 
     return (
@@ -37,7 +39,7 @@ class UserItem extends React.Component {
             onCheck={this.toggleRole.bind(this, 'admin')}
           />
         </td>
-        {this.props.user.roles.includes('superAdmin') && (
+        {controllerUser.roles.includes('superAdmin') && (
           <td className={style.checkbox}>
             <Checkbox label="super admin"
               className={style.checkbox}
@@ -51,7 +53,7 @@ class UserItem extends React.Component {
             <RemoveCircleIcon />
           </IconButton>
         </td>
-        {this.props.user.roles.includes('superAdmin') && (
+        {controllerUser.roles.includes('superAdmin') && (
           <td className={style.fnButton}>
             <Link to={`/timezones/${_id}`}>
               <IconButton className={style.editButton}><EditIcon /></IconButton>

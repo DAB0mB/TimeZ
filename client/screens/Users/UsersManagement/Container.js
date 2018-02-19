@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
   return {
     users,
+    controllerUser: state.auth.user,
   };
 };
 
