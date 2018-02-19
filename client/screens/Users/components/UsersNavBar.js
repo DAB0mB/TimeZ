@@ -17,7 +17,7 @@ export const UsersNavBar = ({ label, screen, message, controlled }) => (
     <AppBar
       title={<span>{label}</span>}
       iconElementLeft={makeBackButton(screen, controlled)}
-      iconElementRight={makeBarButtons(screen)}
+      iconElementRight={makeBarButtons(screen, controlled)}
     />
     <MessageBar message={message} />
   </div>
@@ -31,7 +31,9 @@ UsersNavBar.propTypes = {
   controlled: PropTypes.bool
 };
 
-const makeBarButtons = (screen) => {
+const makeBarButtons = (screen, controlled) => {
+  if (controlled) return <div />;
+
   switch (screen) {
     // Testing uses the data attr // todo ***
     // <div data-__test__ahref="/" > was removed as it broke <Link>

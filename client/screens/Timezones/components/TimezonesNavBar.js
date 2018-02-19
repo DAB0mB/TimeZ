@@ -17,7 +17,7 @@ export const TimezonesNavBar = ({ label, screen, message, roles, showBackButton 
     <AppBar
       title={<span>{label}</span>}
       iconElementLeft={makeBackButton(showBackButton)}
-      iconElementRight={makeBarButtons(screen, roles)}
+      iconElementRight={makeBarButtons(screen, roles, showBackButton)}
     />
     <MessageBar message={message} />
   </div>
@@ -31,7 +31,9 @@ TimezonesNavBar.propTypes = {
   roles: PropTypes.arrayOf(PropTypes.string),
 };
 
-const makeBarButtons = (screen, roles) => {
+const makeBarButtons = (screen, roles, showBackButton) => {
+  if (showBackButton) return <div />;
+
   switch (screen) {
     /*
      Material-ui 0.14.x is not yet compatible with React 15, and React issues this warning:

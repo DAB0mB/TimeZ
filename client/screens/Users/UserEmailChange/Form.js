@@ -12,15 +12,19 @@ const Form = props => {
   return (
     <form onSubmit={handleSubmit}>
 
-      <Field name="password"
-        component={TextField}
-        props={{
-          floatingLabelText: 'Password',
-          hintText: 'Your password.',
-          autoFocus: true,
-        }}
-      />
-      <br />
+      {!props.controlled && (
+        <span>
+          <Field name="password"
+            component={TextField}
+            props={{
+              floatingLabelText: 'Password',
+              hintText: 'Your password.',
+              autoFocus: true,
+            }}
+          />
+          <br />
+        </span>
+      )}
 
       <Field name="email"
         component={TextField}

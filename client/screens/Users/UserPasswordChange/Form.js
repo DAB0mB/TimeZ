@@ -12,26 +12,31 @@ const Form = props => {
   return (
     <form onSubmit={handleSubmit}>
 
-      <Field name="oldPassword"
-        component={TextField}
-        props={{
-          floatingLabelText: 'Current password',
-          hintText: 'Your current password.',
-          autoFocus: true,
-        }}
-      />
-      <br />
+      {!props.controlled && (
+        <span>
+          <Field name="oldPassword"
+            component={TextField}
+            props={{
+              floatingLabelText: 'Current password',
+              hintText: 'Your current password.',
+              autoFocus: true,
+              type: 'password',
+            }}
+          />
+          <br />
+        </span>
+      )}
 
       <Field name="password"
         component={TextField}
-        props={{ floatingLabelText: 'New password', hintText: 'Your new password.' }}
+        props={{ floatingLabelText: 'New password', hintText: 'Your new password.', type: 'password' }}
       />
       <br />
 
       <Field name="confirmPassword"
         component={TextField}
         props={{
-          floatingLabelText: 'Confirm password', hintText: 'Enter your new password again.',
+          floatingLabelText: 'Confirm password', hintText: 'Enter your new password again.', type: 'password'
         }}
       />
       <br />
