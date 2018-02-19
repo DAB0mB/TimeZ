@@ -31,14 +31,7 @@ exports.after = {
   all: [],
   find: [],
   get: [
-    (context) => {
-      const user = context.params.user;
-      const result = context.result;
-
-      if (!user.roles.includes('superAdmin') && result.userId != user._id) {
-        context.result = {};
-      }
-    }
+    associateResult,
   ],
   create: [],
   update: [],
@@ -61,5 +54,14 @@ function associateQuery(context) {
 
   if (!user.roles.includes('superAdmin') || !query.userId) {
     query.userId = user._id;
+  }
+}
+
+function associateResult(context) {
+  const user = context.params.user;
+  const result = context.result;
+
+  if (!user.roles.includes('superAdmin') && result.userId != user._id) {
+    context.result = {};
   }
 }

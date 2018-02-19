@@ -31,6 +31,7 @@ exports.before = (app) => {
         idField: idName,
         owner: false,
       }),
+      restrictAdminQuery,
     ],
     get: [
       auth.verifyToken(),
@@ -53,6 +54,7 @@ exports.before = (app) => {
       hooks.remove('confirmPassword'),
       verifyHooks.addVerification(), // set email addr verification info
       auth.hashPassword(),
+      restrictAdminData,
     ],
     update: [
       auth.verifyToken(),
@@ -64,18 +66,8 @@ exports.before = (app) => {
         ownerField: idName,
         owner: true,
       }),
-      (context) => {
-        const user = context.params.user;
-        const data = context.data;
-
-        // An admin can't make a user a superAdmin
-        if (user.roles.includes('admin') &&
-           !user.roles.includes('superAdmin') &&
-           data.roles && data.roles.includes('superAdmin')) {
-            const index = data.roles.indexOf('superAdmin');
-            data.roles.splice(index, 1);
-        }
-      }
+      restrictAdminQuery,
+      restrictAdminData,
     ],
     patch: [ // client route /user/rolechange patches roles. todo might check its an admin acct
       auth.verifyToken(),
@@ -87,6 +79,8 @@ exports.before = (app) => {
         ownerField: idName,
         owner: true,
       }),
+      restrictAdminQuery,
+      restrictAdminData,
     ],
     remove: [
       auth.verifyToken(),
@@ -98,6 +92,7 @@ exports.before = (app) => {
         ownerField: idName,
         owner: true,
       }),
+      restrictAdminQuery,
     ],
   };
 };
@@ -110,6 +105,7 @@ exports.after = {
   get: [
     hooks.remove('password'),
     verifyHooks.removeVerification(),
+    restrictAdminResult,
   ],
   create: [
     hooks.remove('password'),
@@ -131,12 +127,55 @@ exports.after = {
 };
 
 function emailVerification(hook, next) {
+  if (hook.params.user && hook.params.user.roles &&
+      hook.params.user.roles.includes('admin') &&
+      hook.params.user.roles.includes('superAdmin')) {
+    // Skip verification if an admin wants to create a user
+    hook.data.isVerified = true;
+    return next(null, hook);
+  }
+
   const user = clone(hook.result);
   const params = hook.params;
 
   emailer('send', user, params, (err) => {
     next(err, hook);
   });
+}
+
+function restrictAdminQuery(context) {
+  const query = context.params.query;
+  const user = context.params.user;
+
+  // Admin will only be able to CRUD admins at most
+  if (user.roles.includes('admin') &&
+      !user.roles.includes('superAdmin')) {
+    query.roles = { $ne: 'superAdmin' };
+  }
+}
+
+function restrictAdminData(context) {
+  const data = context.data;
+  const user = context.params.user;
+
+  // An admin can't create a user a superAdmin
+  if (user.roles.includes('admin') &&
+     !user.roles.includes('superAdmin') &&
+     data.roles && data.roles.includes('superAdmin')) {
+      const index = data.roles.indexOf('superAdmin');
+      data.roles.splice(index, 1);
+  }
+}
+
+function restrictAdminResult(context) {
+  const user = context.params.user;
+
+  // Admin will only be able to CRUD admins at most
+  if (user.roles.includes('admin') &&
+      !user.roles.includes('superAdmin') &&
+      context.result.includes('superAdmin')) {
+    context.result = {};
+  }
 }
 
 // Helpers

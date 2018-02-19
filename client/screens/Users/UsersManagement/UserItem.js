@@ -37,7 +37,7 @@ class UserItem extends React.Component {
             onCheck={this.toggleRole.bind(this, 'admin')}
           />
         </td>
-        {roles.includes('superAdmin') && (
+        {this.props.user.roles.includes('superAdmin') && (
           <td className={style.checkbox}>
             <Checkbox label="super admin"
               className={style.checkbox}
@@ -51,11 +51,13 @@ class UserItem extends React.Component {
             <RemoveCircleIcon />
           </IconButton>
         </td>
-        <td className={style.fnButton}>
-          <Link to={`/timezones/${_id}`}>
-            <IconButton className={style.editButton}><EditIcon /></IconButton>
-          </Link>
-        </td>
+        {this.props.user.roles.includes('superAdmin') && (
+          <td className={style.fnButton}>
+            <Link to={`/timezones/${_id}`}>
+              <IconButton className={style.editButton}><EditIcon /></IconButton>
+            </Link>
+          </td>
+        )}
       </tr>
     );
   }

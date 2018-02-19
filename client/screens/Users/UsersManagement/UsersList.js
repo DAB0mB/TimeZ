@@ -75,11 +75,11 @@ export class UsersList extends React.Component {
   }
 
   toggleRole(user, role) {
-    this.props.toggleRole(user, role);
+    return this.props.toggleRole(user, role);
   }
 
   removeUser(user) {
-    this.props.removeUser(user).then(() => {
+    return this.props.removeUser(user).then(() => {
       let i;
 
       for (i = 0; i < this.state.users.length; i++) {
