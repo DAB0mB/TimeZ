@@ -1,6 +1,7 @@
 
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
+import ReduxUserCreator from './ReduxUserCreator';
 import UserItem from './UserItem';
 
 import style from './style.css';
@@ -51,6 +52,8 @@ export class UsersList extends React.Component {
 
     return (
       <div className={style.list}>
+        <ReduxUserCreator afterSubmit={this.afterSubmit.bind(this)} />
+
         <TextField name="username"
           value={pattern}
           onChange={({ target }) => this.setState({ pattern: target.value }) }
@@ -89,6 +92,11 @@ export class UsersList extends React.Component {
       this.state.users.splice(i, 1);
       this.forceUpdate();
     });
+  }
+
+  afterSubmit({ value }) {
+    this.state.users.push(value);
+    this.forceUpdate();
   }
 }
 

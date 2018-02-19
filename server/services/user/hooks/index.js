@@ -55,6 +55,7 @@ exports.before = (app) => {
       verifyHooks.addVerification(), // set email addr verification info
       auth.hashPassword(),
       restrictAdminData,
+      adminVerifyData,
     ],
     update: [
       auth.verifyToken(),
@@ -126,13 +127,27 @@ exports.after = {
   ],
 };
 
-function emailVerification(hook, next) {
+function adminVerifyData(hook) {
   if (hook.params.user && hook.params.user.roles &&
-      hook.params.user.roles.includes('admin') &&
-      hook.params.user.roles.includes('superAdmin')) {
+      hook.params.user.roles.length) {
     // Skip verification if an admin wants to create a user
     hook.data.isVerified = true;
-    return next(null, hook);
+  }
+}
+
+function adminVerifyResult(hook) {
+  if (hook.params.user && hook.params.user.roles &&
+      hook.params.user.roles.length) {
+    // Skip verification if an admin wants to create a user
+    hook.result.isVerified = true;
+  }
+}
+
+function emailVerification(hook, next) {
+  if (hook.params.user && hook.params.user.roles &&
+      hook.params.user.roles.length) {
+    // Skip verification if an admin wants to create a user
+    return next();
   }
 
   const user = clone(hook.result);
@@ -147,6 +162,8 @@ function restrictAdminQuery(context) {
   const query = context.params.query;
   const user = context.params.user;
 
+  if (!user) return;
+
   // Admin will only be able to CRUD admins at most
   if (user.roles.includes('admin') &&
       !user.roles.includes('superAdmin')) {
@@ -157,6 +174,8 @@ function restrictAdminQuery(context) {
 function restrictAdminData(context) {
   const data = context.data;
   const user = context.params.user;
+
+  if (!user) return;
 
   // An admin can't create a user a superAdmin
   if (user.roles.includes('admin') &&
@@ -169,6 +188,8 @@ function restrictAdminData(context) {
 
 function restrictAdminResult(context) {
   const user = context.params.user;
+
+  if (!user) return;
 
   // Admin will only be able to CRUD admins at most
   if (user.roles.includes('admin') &&
