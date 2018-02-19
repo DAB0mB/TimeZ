@@ -12,11 +12,11 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import MessageBar from '../../components/MessageBar';
 
-export const UsersNavBar = ({ label, screen, message }) => (
+export const UsersNavBar = ({ label, screen, message, controlled }) => (
   <div>
     <AppBar
       title={<span>{label}</span>}
-      iconElementLeft={makeBackButton(screen)}
+      iconElementLeft={makeBackButton(screen, controlled)}
       iconElementRight={makeBarButtons(screen)}
     />
     <MessageBar message={message} />
@@ -27,7 +27,8 @@ UsersNavBar.propTypes = {
   label: PropTypes.string.isRequired, // Nav bar label
   screen: PropTypes.string.isRequired, // nav bar is for this patch, determines options shown
   username: PropTypes.any,
-  message: PropTypes.string, //
+  message: PropTypes.string,
+  controlled: PropTypes.bool
 };
 
 const makeBarButtons = (screen) => {
@@ -143,7 +144,7 @@ const makeBarButtons = (screen) => {
   }
 };
 
-const makeBackButton = (screen) => {
+const makeBackButton = (screen, controlled) => {
   switch (screen) {
     case 'user/profile':
     case 'user/roleschange': // eslint-disable-line no-case-declarations
@@ -157,7 +158,7 @@ const makeBackButton = (screen) => {
     case 'user/emailchange': // eslint-disable-line no-case-declarations
     case 'user/profilechange': // eslint-disable-line no-case-declarations
       return (
-        <Link to="/user/profile">
+        <Link to={controlled ? '/users' : '/user/profile'}>
           <IconButton><ArrowBackIcon /></IconButton>
         </Link>
       )

@@ -3,6 +3,9 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Checkbox from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import RemoveCircleIcon from 'material-ui/svg-icons/content/remove-circle';
 import EditIcon from 'material-ui/svg-icons/image/edit';
 
@@ -53,13 +56,32 @@ class UserItem extends React.Component {
             <RemoveCircleIcon />
           </IconButton>
         </td>
-        {controllerUser.roles.includes('superAdmin') && (
-          <td className={style.fnButton}>
-            <Link to={`/timezones/${_id}`}>
-              <IconButton className={style.editButton}><EditIcon /></IconButton>
-            </Link>
-          </td>
-        )}
+        <td className={style.fnButton}>
+          <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+          >
+            <MenuItem
+              containerElement={<Link to={`/user/passwordchange/${_id}`} />}
+              primaryText="Change password"
+            />
+            <MenuItem
+              containerElement={<Link to={`/user/emailchange/${_id}`} />}
+              primaryText="Change email address"
+            />
+            <MenuItem
+              containerElement={<Link to={`/user/profilechange/${_id}`} />}
+              primaryText="Change profile"
+            />
+            {controllerUser.roles.includes('superAdmin') && (
+              <MenuItem
+                containerElement={<Link to={`/timezones/${_id}`} />}
+                primaryText="Change timezones"
+              />
+            )}
+          </IconMenu>
+        </td>
       </tr>
     );
   }

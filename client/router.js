@@ -83,11 +83,11 @@ export default function (store, history) {
             <Route path="/user/verify/:token" component={UserSignUpValidateEmail} />
             <Route path="/user/forgotpwdsendemail" component={UserForgotPwdSendEmail} />
             <Route path="/user/forgot/:token" component={UserForgotPwdReset} />
-            <Route path="/user/passwordchange"
+            <Route path="/user/passwordchange(/:userId)"
               component={UserIsAuthenticated(UserPasswordChange)}
             />
-            <Route path="/user/emailchange" component={UserIsAuthenticated(UserEmailChange)} />
-            <Route path="/user/profilechange" component={UserIsAuthenticated(UserProfileChange)} />
+            <Route path="/user/emailchange(/:userId)" component={UserIsAuthenticated(UserEmailChange)} />
+            <Route path="/user/profilechange(/:userId)" component={UserIsAuthenticated(UserProfileChange)} />
             <Route path="/user/profile" component={UserIsAuthenticated(UserProfile)} />
             <Route path="/users"
               component={UserIsAuthenticated(UserIsAdmin(UsersManagement))}

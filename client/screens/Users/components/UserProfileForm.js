@@ -8,82 +8,89 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import style from './button.css';
 
-const Form = (props) => {
-  const { handleSubmit, pristine, reset, submitting, invalid } = props;
+class Form extends React.Component {
+  static propTypes = {
+    disableAll: PropTypes.bool.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    pristine: PropTypes.bool.isRequired,
+    invalid: PropTypes.bool.isRequired,
+    reset: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired,
+    fetchUser: PropTypes.func,
+  }
 
-  return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
+  componentDidMount() {
+    if (this.props.fetchUser) this.props.fetchUser();
+  }
 
-        <Field name="name"
-          component={TextField}
-          props={{
-            floatingLabelText: 'Name',
-            hintText: 'Your name.',
-            disabled: props.disableAll,
-            autoFocus: true,
-          }}
-        />
-        <br />
+  render() {
+    const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
 
-        <Field name="username"
-          component={TextField}
-          props={{
-            floatingLabelText: 'Username',
-            hintText: 'The name you want others to know you by.',
-            disabled: props.disableAll,
-          }}
-        />
-        <br />
+    return (
+      <div className="container">
+        <form onSubmit={handleSubmit}>
 
-        <Field name="email"
-          component={TextField}
-          props={{
-            floatingLabelText: 'Email',
-            hintText: 'Your email address.',
-            disabled: true,
-          }}
-        />
-        <br />
-
-        <Field name="roles"
-          component={TextField}
-          props={{
-            floatingLabelText: 'Roles',
-            hintText: 'What is the user allowed to do?',
-            disabled: true,
-          }}
-        />
-        <br />
-
-        <div>
-          <RaisedButton label={submitting ? 'Saving...' : 'Save'}
-            disabled={pristine || invalid || submitting || props.disableAll}
-            className={style.button}
-            type="submit"
-            primary
+          <Field name="name"
+            component={TextField}
+            props={{
+              floatingLabelText: 'Name',
+              hintText: 'Your name.',
+              disabled: this.props.disableAll,
+              autoFocus: true,
+            }}
           />
-          <RaisedButton label="Clear Values"
-            disabled={pristine || submitting || props.disableAll}
-            className={style.button}
-            onTouchTap={reset}
-            secondary
+          <br />
+
+          <Field name="username"
+            component={TextField}
+            props={{
+              floatingLabelText: 'Username',
+              hintText: 'The name you want others to know you by.',
+              disabled: this.props.disableAll,
+            }}
           />
-        </div>
+          <br />
 
-      </form>
-    </div>
-  );
-};
+          <Field name="email"
+            component={TextField}
+            props={{
+              floatingLabelText: 'Email',
+              hintText: 'Your email address.',
+              disabled: true,
+            }}
+          />
+          <br />
 
-Form.propTypes = {
-  disableAll: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  reset: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-};
+          <Field name="roles"
+            component={TextField}
+            props={{
+              floatingLabelText: 'Roles',
+              hintText: 'What is the user allowed to do?',
+              disabled: true,
+            }}
+          />
+          <br />
+
+          <div>
+            <RaisedButton label={submitting ? 'Saving...' : 'Save'}
+              disabled={pristine || invalid || submitting || this.props.disableAll}
+              className={style.button}
+              type="submit"
+              primary
+            />
+            <RaisedButton label="Clear Values"
+              disabled={pristine || submitting || this.props.disableAll}
+              className={style.button}
+              onTouchTap={reset}
+              secondary
+            />
+          </div>
+
+        </form>
+      </div>
+    );
+  }
+}
 
 export default Form;
