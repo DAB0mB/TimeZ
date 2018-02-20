@@ -147,6 +147,14 @@ const makeBarButtons = (screen, controlled) => {
 };
 
 const makeBackButton = (screen, controlled) => {
+  if (controlled) {
+    return (
+      <Link to="/users">
+        <IconButton><ArrowBackIcon /></IconButton>
+      </Link>
+    );
+  }
+
   switch (screen) {
     case 'user/profile':
     case 'user/roleschange': // eslint-disable-line no-case-declarations
@@ -160,7 +168,7 @@ const makeBackButton = (screen, controlled) => {
     case 'user/emailchange': // eslint-disable-line no-case-declarations
     case 'user/profilechange': // eslint-disable-line no-case-declarations
       return (
-        <Link to={controlled ? '/users' : '/user/profile'}>
+        <Link to="/user/profile">
           <IconButton><ArrowBackIcon /></IconButton>
         </Link>
       )

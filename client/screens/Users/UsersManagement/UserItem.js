@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import RemoveCircleIcon from 'material-ui/svg-icons/content/remove-circle';
 import EditIcon from 'material-ui/svg-icons/image/edit';
+import PersonIcon from 'material-ui/svg-icons/social/person';
 
 import style from './style.css';
 
@@ -52,8 +53,15 @@ class UserItem extends React.Component {
           </td>
         )}
         <td className={style.fnButton}>
-          <IconButton className={style.removeButton} onClick={this.removeUser.bind(this)} >
+          <IconButton onClick={this.removeUser.bind(this)} >
             <RemoveCircleIcon />
+          </IconButton>
+        </td>
+        <td className={style.fnButton}>
+          <IconButton >
+            <Link to={`/user/profile/${_id}`}>
+              <PersonIcon />
+            </Link>
           </IconButton>
         </td>
         <td className={style.fnButton}>
