@@ -75,10 +75,6 @@ const makeBarButtons = (screen, controlled) => {
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
           <MenuItem
-            containerElement={<Link to="/user/signin" />}
-            primaryText="Sign out"
-          />
-          <MenuItem
             containerElement={<Link to="/user/passwordchange" />}
             primaryText="Change password"
           />
@@ -108,9 +104,7 @@ const makeBarButtons = (screen, controlled) => {
     case 'user/profilechange': // eslint-disable-line no-case-declarations
     case 'users': // eslint-disable-line no-case-declarations
       return (
-        <FlatButton
-          label="Sign out" containerElement={<Link to="/user/signin" />}
-        />
+        <div />
       );
 
     case 'user/roleschange': // eslint-disable-line no-case-declarations
@@ -135,7 +129,7 @@ const makeBarButtons = (screen, controlled) => {
     case 'user/forgotpwdreset': // eslint-disable-line no-case-declarations
     case 'user/signingin':  // eslint-disable-line no-case-declarations
       return (
-        <span />
+        <div />
       );
 
     default: {
