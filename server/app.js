@@ -65,7 +65,9 @@ module.exports = app;
 
 // Helpers
 
-function serveHtmlForEnvironment(req, res) {
+function serveHtmlForEnvironment(req, res, next) {
+  if (!req.accepts('html')) return next();
+
   var html; // eslint-disable-line no-var
 
   switch (config.NODE_ENV) {

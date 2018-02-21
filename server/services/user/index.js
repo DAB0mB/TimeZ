@@ -21,10 +21,6 @@ module.exports = function () { // 'function' needed as we use 'this'
 
   const options = {
     Model: db,
-    paginate: {
-      default: 5,
-      max: 25,
-    },
   };
 
   // Initialize our service with any options it requires

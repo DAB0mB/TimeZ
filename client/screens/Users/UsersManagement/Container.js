@@ -5,8 +5,7 @@ import { feathersServices } from '../../../feathers';
 import UsersList from './UsersList'; // eslint-disable-line import/no-unresolved
 
 const mapStateToProps = (state) => {
-  const usersQueryResult = state.users.queryResult || {};
-  const users = usersQueryResult.data || [];
+  const users = state.users.queryResult || [];
   let myIndex;
 
   for (myIndex = 0; myIndex < users.length; myIndex++) {

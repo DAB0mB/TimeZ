@@ -45,6 +45,13 @@ exports.before = (app) => {
       }),
     ],
     create: [
+      (hook) => {
+        if (hook.params.token) {
+          return auth.verifyToken()(hook).then(() => {
+            return auth.populateUser()(hook);
+          });
+        }
+      },
       validateSchema.form(schemas.signup, schemas.options), // schema validation
       hooks.validateSync(client.signup),  // redo redux-form client validation
       hooks.validateUsingPromise(values => verifyReset.create( // redo redux-form async
@@ -52,10 +59,18 @@ exports.before = (app) => {
       )),
       hooks.validateUsingCallback(server.signup, { app }), // server validation
       hooks.remove('confirmPassword'),
-      verifyHooks.addVerification(), // set email addr verification info
+      // set email addr verification info unless we're admin
+      (hook, next) => {
+        if (hook.params.user && hook.params.user.roles.length) {
+          hook.data.isVerified = true;
+          next();
+        }
+        else {
+          verifyHooks.addVerification()(hook, next);
+        }
+      },
       auth.hashPassword(),
       restrictAdminData,
-      adminVerifyData,
     ],
     update: [
       auth.verifyToken(),
@@ -128,22 +143,6 @@ exports.after = {
     verifyHooks.removeVerification(),
   ],
 };
-
-function adminVerifyData(hook) {
-  if (hook.params.user && hook.params.user.roles &&
-      hook.params.user.roles.length) {
-    // Skip verification if an admin wants to create a user
-    hook.data.isVerified = true;
-  }
-}
-
-function adminVerifyResult(hook) {
-  if (hook.params.user && hook.params.user.roles &&
-      hook.params.user.roles.length) {
-    // Skip verification if an admin wants to create a user
-    hook.result.isVerified = true;
-  }
-}
 
 function emailVerification(hook, next) {
   if (hook.params.user && hook.params.user.roles &&

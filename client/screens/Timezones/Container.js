@@ -5,10 +5,10 @@ import { feathersServices } from '../../feathers';
 import Main from './components/Main'; // eslint-disable-line import/no-unresolved
 
 const mapStateToProps = (state) => {
-  const timezonesQueryResult = state.timezones.queryResult || {};
+  const timezones = state.timezones.queryResult || [];
 
   return {
-    timezones: timezonesQueryResult.data || [],
+    timezones,
     roles: state.auth.user.roles || [],
   };
 };
