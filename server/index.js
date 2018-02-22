@@ -1,6 +1,10 @@
 
 /* eslint no-console: 0 */
 
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
+
 const debug = require('debug')('server:index');
 const environmentVariablesValidation = require('./validations/environmentVariablesValidation');
 
@@ -53,14 +57,26 @@ usersClientValidations.setClientValidationsConfig(config);
 
 // Start server
 const port = normalizePort(config.server.port);
+const app = require('./app');
+const db = require('./db');
 
 debug('Require app');
-const app = require('./app');
 
-debug('Start server');
-const server = app.listen(port)
-  .on('error', onError)
-  .on('listening', onListening);
+let server;
+db.connect()
+  .then(() => {
+    app.initialize();
+
+    debug('Start server');
+
+    server = app.listen(port)
+      .on('error', onError)
+      .on('listening', onListening);
+  })
+  .catch((err) => {
+    console.error('DB connection error: ', err.stack);
+    process.exit(1);
+  });
 
 // Handle uncaught exceptions
 // Consider enhancements at: https://coderwall.com/p/4yis4w/node-js-uncaught-exceptions

@@ -1,26 +1,20 @@
 
 const debug = require('debug')('service:timezone');
 const path = require('path');
-const NeDB = require('nedb');
-const service = require('feathers-nedb');
+const service = require('feathers-mongodb');
 const config = require('config');
 
+const db = require('../../db');
 const hooks = require('./hooks');
 
 debug('Required');
 
 module.exports = function () { // 'function' needed as we use 'this'
   const app = this;
-  const fileName = path.join(config.database.path, 'timezones.db');
-  debug(`Config for ${fileName}`);
-
-  const db = new NeDB({
-    filename: fileName,
-    autoload: true,
-  });
+  debug('Config for timezones');
 
   const options = {
-    Model: db,
+    Model: db.collection('timezones'),
   };
 
   // Initialize our service with any options it requires

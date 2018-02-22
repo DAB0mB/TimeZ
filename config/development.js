@@ -10,6 +10,6 @@ module.exports = {
     logConsoleLevel: 'silly',
   },
   database: {
-    path: path.join(root, 'data-dev'),
+    path: 'mongodb://localhost:27017',
   },
 };

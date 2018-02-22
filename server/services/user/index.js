@@ -1,26 +1,20 @@
 
 const debug = require('debug')('service:user');
 const path = require('path');
-const NeDB = require('nedb');
-const service = require('feathers-nedb');
+const service = require('feathers-mongodb');
 const config = require('config');
 
+const db = require('../../db');
 const hooks = require('./hooks');
 
 debug('Required');
 
 module.exports = function () { // 'function' needed as we use 'this'
   const app = this;
-  const fileName = path.join(config.database.path, 'users.db');
-  debug(`Config for ${fileName}`);
-
-  const db = new NeDB({
-    filename: fileName,
-    autoload: true,
-  });
+  debug(`Config for users`);
 
   const options = {
-    Model: db,
+    Model: db.collection('users'),
   };
 
   // Initialize our service with any options it requires

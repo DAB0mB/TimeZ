@@ -1,27 +1,20 @@
 
 const debug = require('debug')('service:message');
 const path = require('path');
-const NeDB = require('nedb');
-const service = require('feathers-nedb');
+const service = require('feathers-mongodb');
 const config = require('config');
 
+const db = require('../../db');
 const hooks = require('./hooks');
 
 debug('Required');
 
 module.exports = function () {
   const app = this;
-  const fileName = path.join(config.database.path, 'messages.db');
-  debug(`Config for ${fileName}`);
-
-
-  const db = new NeDB({
-    filename: fileName,
-    autoload: true,
-  });
+  debug('Config for messages');
 
   const options = {
-    Model: db,
+    Model: db.collection('messages'),
     paginate: {
       default: 5,
       max: 25,
