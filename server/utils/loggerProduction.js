@@ -31,6 +31,7 @@
 
 const debug = require('debug')('server:loggerProduction');
 const path = require('path');
+const mkdirp = require('mkdirp');
 const winston = require('winston');
 const morgan = require('morgan');
 const config = require('config');
@@ -56,6 +57,8 @@ const transports = [
 ];
 
 if (isProduction) {
+  mkdirp.sync(config.logs.path);
+
   debug('Add file logger');
   transports.push(
     // Setup the log file

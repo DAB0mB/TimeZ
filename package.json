@@ -119,6 +119,7 @@
     "html-webpack-plugin": "2.22.0",
     "istanbul": "^0.4.5",
     "material-ui": "^0.16.7",
+    "mkdirp": "^0.5.1",
     "mocha": "^3.0.2",
     "postcss-loader": "^0.13.0",
     "react-router": "^2.8.1",
