@@ -42,29 +42,23 @@ class UserItem extends React.Component {
             checked={roles.includes('admin')}
             onCheck={this.toggleRole.bind(this, 'admin')}
           />
-        </td>
-        {controllerUser.roles.includes('superAdmin') && (
-          <td className={style.checkbox}>
+          {controllerUser.roles.includes('superAdmin') && (
             <Checkbox label="super admin"
               className={style.checkbox}
               checked={roles.includes('superAdmin')}
               onCheck={this.toggleRole.bind(this, 'superAdmin')}
             />
-          </td>
-        )}
+          )}
+        </td>
         <td className={style.fnButton}>
           <IconButton onClick={this.removeUser.bind(this)} >
             <RemoveCircleIcon />
           </IconButton>
-        </td>
-        <td className={style.fnButton}>
           <IconButton >
             <Link to={`/user/profile/${_id}`}>
               <PersonIcon />
             </Link>
           </IconButton>
-        </td>
-        <td className={style.fnButton}>
           <IconMenu
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             targetOrigin={{ horizontal: 'left', vertical: 'top' }}

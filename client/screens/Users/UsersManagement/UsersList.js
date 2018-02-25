@@ -56,6 +56,7 @@ export class UsersList extends React.Component {
         <ReduxUserCreator afterSubmit={this.afterSubmit.bind(this)} />
 
         <TextField name="username"
+          className={style.filter}
           value={pattern}
           onChange={({ target }) => this.setState({ pattern: target.value }) }
           floatingLabelText="Filter"
@@ -63,7 +64,14 @@ export class UsersList extends React.Component {
           autoComplete="off"
         />
 
-        <table>
+        <table className={style.table}>
+          <thead className={style.head}>
+            <tr>
+              <td>username</td>
+              <td>roles</td>
+              <td />
+            </tr>
+          </thead>
           <tbody>
             {users.map((user) => (
               <UserItem key={user.username}

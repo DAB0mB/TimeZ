@@ -4,21 +4,23 @@ import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import style from '../components/button.css';
+import style from '../components/form.css';
 
 const Form = props => {
   const { handleSubmit, pristine, reset, submitting, invalid } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={style.form} onSubmit={handleSubmit}>
 
       <Field name="name"
+        className={style.field}
         component={TextField}
         props={{ floatingLabelText: 'Name', hintText: 'Your full name.', autoFocus: true }}
       />
       <br />
 
       <Field name="username"
+        className={style.field}
         component={TextField}
         props={{
           floatingLabelText: 'Username', hintText: 'The name you want others to know you by.',
@@ -27,24 +29,27 @@ const Form = props => {
       <br />
 
       <Field name="email"
+        className={style.field}
         component={TextField}
         props={{ floatingLabelText: 'Email', hintText: 'Your email address.' }}
       />
       <br />
 
       <Field name="password"
+        className={style.field}
         component={TextField}
         props={{ floatingLabelText: 'Password', type: 'password' }}
       />
       <br />
 
       <Field name="confirmPassword"
+        className={style.field}
         component={TextField}
         props={{ floatingLabelText: 'Confirm password', type: 'password' }}
       />
       <br />
 
-      <div>
+      <div className={style.buttons}>
         <RaisedButton label={submitting ? 'Signing Up...' : 'Sign Up'}
           disabled={pristine || invalid || submitting}
           className={style.button}

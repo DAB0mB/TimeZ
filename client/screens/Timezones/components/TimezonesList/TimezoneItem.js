@@ -46,13 +46,13 @@ class TimezoneItem extends React.Component {
     const { timezone, onRemove } = this.props;
 
     return (
-      <tr className={style.item}>
-        <td className={style.label}>{timezone.name}</td>
-        <td className={style.label}>{timezone.city}</td>
-        <td className={style.label}>{timezone.diff}</td>
-        <td className={style.label}>{this.state.time}</td>
+      <tr>
+        <td>{timezone.name}</td>
+        <td>{timezone.city}</td>
+        <td>{timezone.diff}</td>
+        <td>{this.state.time}</td>
         <td>
-          <IconButton className={style.removeButton} onClick={onRemove.bind(null, timezone._id)}>
+          <IconButton onClick={onRemove.bind(null, timezone._id)}>
             <RemoveCircleIcon />
           </IconButton>
         </td>

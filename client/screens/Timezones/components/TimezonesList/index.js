@@ -55,6 +55,7 @@ export class TimezonesList extends React.Component {
         <TimezoneCreator onCreate={this.createTimezone.bind(this)} />
 
         <TextField name="name"
+          className={style.filter}
           value={pattern}
           onChange={({ target }) => this.setState({ pattern: target.value }) }
           floatingLabelText="Filter"
@@ -63,6 +64,15 @@ export class TimezonesList extends React.Component {
         />
 
         <table className={style.table}>
+          <thead className={style.head}>
+            <tr>
+              <td>Name</td>
+              <td>City</td>
+              <td>Offset</td>
+              <td>Time</td>
+              <td></td>
+            </tr>
+          </thead>
           <tbody>
             {timezones.map((timezone, i) => (
               <TimezoneItem key={i}

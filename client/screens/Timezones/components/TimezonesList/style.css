@@ -1,26 +1,32 @@
 .creator {
+  margin-top: 10px;
   display: grid;
+}
+
+.head {
+  font-weight: bold;
+}
+
+.filter {
+  margin-left: 10px;
 }
 
 .input {
   margin: 10px;
 }
 
-.item {
-  width: 100%;
+.table {
+  width: calc(100% - 20px);
+  margin: 10px;
+}
+
+.table td {
+  width: 20%;
   font-family: Roboto, sans-serif;
   height: 48px;
   line-height: 48px;
 }
 
-.table td {
-  width: 100px;
-}
-
-.label {
-  float: left;
-}
-
-.removeButton {
-  float: right;
+.button {
+  margin: 12px;
 }

@@ -1,12 +1,30 @@
+.form {
+  margin: 10px;
+}
+
+.head {
+  font-weight: bold;
+}
+
+.table {
+  width: calc(100% - 20px);
+  margin: 10px;
+}
+
+.table td {
+  width: 33%;
+  margin: 10px;
+  font-family: Roboto, sans-serif;
+  height: 48px;
+  line-height: 48px;
+}
+
 .list {
   list-style: none;
 }
 
-.item {
-  width: 512px;
-  font-family: Roboto, sans-serif;
-  height: 48px;
-  line-height: 48px;
+.filter {
+  margin-left: 10px;
 }
 
 .username {

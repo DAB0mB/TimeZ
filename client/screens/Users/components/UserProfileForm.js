@@ -6,7 +6,7 @@ import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import style from './button.css';
+import style from './form.css';
 
 class Form extends React.Component {
   static propTypes = {
@@ -29,9 +29,10 @@ class Form extends React.Component {
 
     return (
       <div className="container">
-        <form onSubmit={handleSubmit}>
+        <form className={style.form} onSubmit={handleSubmit}>
 
           <Field name="name"
+            className={style.field}
             component={TextField}
             props={{
               floatingLabelText: 'Name',
@@ -43,6 +44,7 @@ class Form extends React.Component {
           <br />
 
           <Field name="username"
+            className={style.field}
             component={TextField}
             props={{
               floatingLabelText: 'Username',
@@ -53,6 +55,7 @@ class Form extends React.Component {
           <br />
 
           <Field name="email"
+            className={style.field}
             component={TextField}
             props={{
               floatingLabelText: 'Email',
@@ -63,6 +66,7 @@ class Form extends React.Component {
           <br />
 
           <Field name="roles"
+            className={style.field}
             component={TextField}
             props={{
               floatingLabelText: 'Roles',
@@ -72,7 +76,7 @@ class Form extends React.Component {
           />
           <br />
 
-          <div>
+          <div className={style.buttons}>
             <RaisedButton label={submitting ? 'Saving...' : 'Save'}
               disabled={pristine || invalid || submitting || this.props.disableAll}
               className={style.button}

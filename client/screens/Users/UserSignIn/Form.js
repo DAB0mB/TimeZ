@@ -4,7 +4,7 @@ import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import style from '../components/button.css';
+import style from '../components/form.css';
 
 class Form extends Component {
   componentWillMount() {
@@ -21,21 +21,23 @@ class Form extends Component {
     const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
 
     const a = (
-      <form onSubmit={handleSubmit}>
+      <form className={style.form} onSubmit={handleSubmit}>
 
         <Field name="email"
+          className={style.field}
           component={TextField}
           props={{ floatingLabelText: 'Email', hintText: 'Your email address.', autoFocus: true }}
         />
         <br />
 
         <Field name="password"
+          className={style.field}
           component={TextField}
           props={{ floatingLabelText: 'Password', hintText: 'Your password.', type: 'password' }}
         />
         <br />
 
-        <div>
+        <div className={style.buttons}>
           <RaisedButton label={submitting ? 'Signing In...' : 'Sign In'}
             disabled={invalid || submitting}
             className={style.button}

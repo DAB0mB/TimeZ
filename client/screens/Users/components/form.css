@@ -1,0 +1,16 @@
+
+.form {
+  margin-top: 10px;
+}
+
+.field {
+  left: calc(50% - 128px);
+}
+
+.buttons {
+  text-align: center;
+}
+
+.button {
+  margin: 12px;
+}
