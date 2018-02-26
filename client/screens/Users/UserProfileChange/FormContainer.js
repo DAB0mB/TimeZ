@@ -10,6 +10,8 @@ import Form from '../components/UserProfileForm';
 import usersClientValidations from '../../../../common/helpers/usersClientValidations';
 
 const asyncValidate = (values, dispatch) => new Promise((resolve, reject) => {
+  if (values.username == values.initialUsername) return resolve();
+
   dispatch(feathersServices.verifyReset.create({
     action: 'unique',
     value: { username: values.username },
@@ -62,6 +64,7 @@ const mapStateToProps = (state, ownProps) => {
     initialValues: {
       _id: user.id || user._id,
       name: user.name,
+      initialUsername: user.username,
       username: user.username,
       email: user.email,
       roles: user.roles || '',
