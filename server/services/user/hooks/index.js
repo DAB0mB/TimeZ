@@ -189,13 +189,14 @@ function restrictAdminData(context) {
 
 function restrictAdminResult(context) {
   const user = context.params.user;
+  const result = context.result;
 
   if (!user) return;
 
   // Admin will only be able to CRUD admins at most
   if (user.roles.includes('admin') &&
       !user.roles.includes('superAdmin') &&
-      context.result.includes('superAdmin')) {
+      result.roles && result.roles.includes('superAdmin')) {
     context.result = {};
   }
 }
