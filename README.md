@@ -1,5 +1,10 @@
 # TimeZ
 
+A time zones management application with authentications and roles.
+
+Frontent - React and Redux.
+Backend - FeathersJS.
+
 ## Running starter pack
 
 `npm install` from root.
